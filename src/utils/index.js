@@ -56,6 +56,3 @@ export const serialize = msg => {
 	if (msg.toString) return msg.toString()
 }
 
-
-
-

@@ -1,3 +1,5 @@
+import config from '../config'
+
 const LOADED_ON = +new Date()
 
 const discoverDependencies = function() {
@@ -25,7 +27,6 @@ const discoverDependencies = function() {
 					results[a] = version
 				}
 			}
-
 		}
 	}
 	return results
@@ -34,8 +35,10 @@ const discoverDependencies = function() {
 const getEnvironment = () => {
 	return {
 		age: +new Date() - LOADED_ON,
+		url: (window.location || '').toString(),
 		dependencies: discoverDependencies(),
 		userAgent: window.navigator.userAgent,
+		version: config.version,
 		viewportHeight: window.document.documentElement.clientHeight,
 		viewportWidth: window.document.documentElement.clientWidth
 	}
