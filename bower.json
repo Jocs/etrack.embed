@@ -1,0 +1,26 @@
+{
+  "name": "track-error-embeded",
+  "description": "a client js file embeded in application to track js error and request/response error",
+  "main": "index.js",
+  "authors": [
+    "Jocs"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "javascript",
+    "Error"
+  ],
+  "homepage": "https://github.com/Jocs/etrack",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.9",
+    "jquery": "~2.2.0"
+  }
+}

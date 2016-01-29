@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='./dist/etrack.min.js'></script>
+	<script src='bower_components/angular/angular.js'></script>
+	<script src='bower_components/jquery/dist/jquery.js'></script>
+</head>
+<body>
+	<a href="#hello" data-url='www.baidu.com'>hello</a>
+	<button>Click Me</button>
+	<input type="text">
+	<input type="checkbox">
+	<input type="radio" value='hello'>
+	<textarea name="" id="" cols="30" rows="10"></textarea>
+	<script>
+		const a = document.querySelector('a')
+		const button = document.querySelector('button')
+		const listener = e => {
+			console.log('e')
+		}
+		a.addEventListener('click', listener, false)
+
+		button.addEventListener('click', function(e){
+			console.log('remove')
+			a.removeEventListener('click', listener, false)
+		}, false)
+		console.info('error')
+		console.error('errororrororo')
+	</script>
+</body>
+</html>

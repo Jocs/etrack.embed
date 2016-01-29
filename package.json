@@ -4,6 +4,7 @@
   "description": "a client js file embeded in application to track js error and request/response error",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src",
     "clear": "rimraf dist",
     "build": "npm run clear && webpack"
   },
