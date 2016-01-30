@@ -34,6 +34,7 @@ const discoverDependencies = function() {
 
 const getEnvironment = () => {
 	return {
+		loadon: LOADED_ON,
 		age: +new Date() - LOADED_ON,
 		url: (window.location || '').toString(),
 		dependencies: discoverDependencies(),

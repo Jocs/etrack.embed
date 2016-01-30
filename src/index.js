@@ -1,7 +1,7 @@
-import catchAndWatch from './components/callbackWatcher'
-import initVisitorWatch from './components/visitorWatcher'
-import initConsoleWatcher from './components/consoleWatcher'
-import initAJAXWatcher from './components/networkWatcher'
+import catchAndWatch from './watchers/callbackWatcher'
+import initVisitorWatch from './watchers/visitorWatcher'
+import initConsoleWatcher from './watchers/consoleWatcher'
+import initAJAXWatcher from './watchers/networkWatcher'
 
 catchAndWatch.initialize()
 initVisitorWatch()

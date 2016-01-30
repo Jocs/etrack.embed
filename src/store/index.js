@@ -17,12 +17,7 @@ class Processes {
 	getAll() {
 		return this.processes
 	}
-	/**
-	 * [get 根据catigory 和 id 值获取某一个步骤，主要用于XMLHttpRequest监听时，写入responseText 以及完成时间戳]
-	 * @param  {[string]} catigory            [步骤分类]
-	 * @param  {[string]} id                  [process唯一id]
-	 * @return {[object or boolean]}          [返回步骤的引用或者返回false没有找到]
-	 */
+
 	update(catigory, id, addedValue) {
 		const processes = this.processes
 		for (let i = 0, len = processes.length; i < len; i++) {

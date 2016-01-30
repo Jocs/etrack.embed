@@ -1,4 +1,4 @@
-import getEnvironment from '../components/environmentWatcher'
+import getEnvironment from '../watchers/environmentWatcher'
 
 export const sendError = (errorType, err) => {
 	console.log(err)
