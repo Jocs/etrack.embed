@@ -9,9 +9,13 @@
 </head>
 <body>
 	<script>
-		const req = new XMLHttpRequest()
-		req.open('get', 'hello.json')
-		req.send(null)
+		const promise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve(3)
+			}, 2000)
+		})
+		promise.then(data => a())
+			.catch(err => console.log(`catch: ${err}`))
 	</script>
 </body>
 </html>

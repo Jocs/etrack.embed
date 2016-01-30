@@ -56,3 +56,9 @@ export const serialize = msg => {
 	if (msg.toString) return msg.toString()
 }
 
+export const wrapError = err => {
+	if (err.message) {
+		return Object.assign({}, err, {message: `etrack: ${err.message}`})
+	}
+	return err
+}
