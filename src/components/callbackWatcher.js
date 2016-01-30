@@ -64,8 +64,7 @@ class WrapAsyncCallback {
 						_callback(e)
 
 					} catch (err) {
-						sendError({
-							errorType: 'catch',
+						sendError('catch', {
 							stack,
 							timeStamp,
 							err

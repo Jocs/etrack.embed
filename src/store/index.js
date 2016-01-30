@@ -23,11 +23,13 @@ class Processes {
 	 * @param  {[string]} id                  [process唯一id]
 	 * @return {[object or boolean]}          [返回步骤的引用或者返回false没有找到]
 	 */
-	get(catigory, id) {
+	update(catigory, id, addedValue) {
 		const processes = this.processes
 		for (let i = 0, len = processes.length; i < len; i++) {
 			if (catigory === processes[i].catigory && id === processes[i].id) {
-				return processes[i].value
+				const oldValue = processes[i].value
+				processes[i].value = Object.assign({}, oldValue, addedValue)
+				// console.log(processes[i].value) // 用于debugger
 			}
 		}
 		return false
@@ -37,7 +39,7 @@ class Processes {
 		const id = unid()
 		this.processes.push({id, catigory, value})
 		this.truncate()
-		console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
+		// console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
 		return id
 	}
 }
