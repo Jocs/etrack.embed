@@ -4,18 +4,22 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<script src='./dist/etrack.min.js'></script>
-	<script src='bower_components/angular/angular.js'></script>
-	<script src='bower_components/jquery/dist/jquery.js'></script>
 </head>
 <body>
+	<button id='button'>ccc</button>
 	<script>
-		const promise = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				resolve(3)
-			}, 2000)
-		})
-		promise.then(data => a())
-			.catch(err => console.log(`catch: ${err}`))
+		window.onerror = function(msg, url, line, col, err) {
+			console.log(`${msg} ${url} ${line} ${col} ${err}`)
+			console.warn(err.isReported)
+		}
+
+		function a() {
+			b()
+		}
+		button.addEventListener('click', function(e) {
+			console.log('b')
+			a()
+		}, false)
 	</script>
 </body>
 </html>

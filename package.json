@@ -24,5 +24,8 @@
     "live-server": "^0.9.1",
     "rimraf": "^2.5.1",
     "webpack": "^1.12.12"
+  },
+  "dependencies": {
+    "stacktrace-js": "^1.0.1"
   }
 }

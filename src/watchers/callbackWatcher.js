@@ -1,5 +1,5 @@
 import { sendError } from '../sendError'
-// import { handleVisotorOperation } from './visitorWatcher'
+import { wrapError } from '../utils'
 
 class EventsCollections {
 	constructor() {
@@ -44,32 +44,19 @@ class WrapAsyncCallback {
 
 	wrapCatchAndWatch(object, method, cbPosition) {
 		const _method = object[method]
+
 		object[method] = function(...args) {
 			try {
 				const _callback = args[cbPosition]
-				// const _eventType = args[0]
-				let stack, timeStamp
-				try {
-					throw new Error()
-				} catch (err) {
-					stack = err.stack // 保存当前的追溯栈
-					timeStamp = +new Date()
-				}
 
 				args[cbPosition] = e => {
 					try {
-						// if (_eventType === 'click' || _eventType === 'blur') {
-						// 	handleVisotorOperation(_eventType, e)
-						// }
+
 						_callback(e)
 
 					} catch (err) {
-						sendError('catch', {
-							stack,
-							timeStamp,
-							err
-						})
-						throw err
+						sendError('catch', err)
+						throw wrapError(err)
 					}
 				}
 				if (method === 'addEventListener') {
@@ -79,6 +66,7 @@ class WrapAsyncCallback {
 
 			} catch (err) {
 				object[method] = _method
+				throw err
 			}
 		}
 	}
