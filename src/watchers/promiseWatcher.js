@@ -7,6 +7,7 @@ const protectEntryPoint = fn => {
 			return fn(...arguments)
 		} catch (err) {
 			sendError('promise@catch', err)
+			// throw the wrapped err to ensure than catch block can catch this error.
 			throw wrapError(err)
 		}
 	}

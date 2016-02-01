@@ -60,13 +60,15 @@ export const wrapError = err => {
 	if (err.innerError) return err
 
 	let newError = Error(`eTrack Caught: ${err.message || err}`)
-	newError.description = `eTrack Caught: ${err.description}`
-	newError.file = err.file
-	newError.line = err.line || err.lineNumber
-	newError.column = err.column || err.columnNumber
-	newError.stack = err.stack
-	newError.innerError = err
-	newError.isReported = true
+	try {
+		newError.description = `eTrack Caught: ${err.description}`
+		newError.file = err.file
+		newError.line = err.line || err.lineNumber
+		newError.column = err.column || err.columnNumber
+		newError.stack = err.stack
+		newError.innerError = err
+		newError.isReported = true
+	} catch (e) {}
 
 	return newError
 }
