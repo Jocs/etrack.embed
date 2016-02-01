@@ -1,4 +1,4 @@
-import { sendError } from '../sendError'
+import { sendError, sendETrackFault } from '../sendError'
 import { wrapError } from '../utils'
 
 class EventsCollections {
@@ -36,8 +36,12 @@ const eventsCollection = new EventsCollections()
 class WrapAsyncCallback {
 	constructor() {}
 	initialize() {
-		this.wrapCatchAndWatch(EventTarget.prototype, 'addEventListener', 1)
-		this.wrapRemoveEventListener(EventTarget.prototype)
+		// Safari 不支持EventTarget，所以只能够分开使用window.Element 和 window.XMLHttpRequest
+		this.wrapCatchAndWatch(window.Element.prototype, 'addEventListener', 1)
+		this.wrapCatchAndWatch(window.XMLHttpRequest.prototype, 'addEventListener', 1)
+		this.wrapRemoveEventListener(window.Element.prototype)
+		this.wrapRemoveEventListener(window.XMLHttpRequest.prototype)
+
 		this.wrapCatchAndWatch(window, 'setTimeout', 0)
 		this.wrapCatchAndWatch(window, 'setInterval', 0)
 	}
@@ -55,7 +59,7 @@ class WrapAsyncCallback {
 						_callback(e)
 
 					} catch (err) {
-						sendError('catch', err)
+						sendError('callback@catch', err)
 						throw wrapError(err)
 					}
 				}
@@ -66,7 +70,7 @@ class WrapAsyncCallback {
 
 			} catch (err) {
 				object[method] = _method
-				throw err
+				sendETrackFault(err)
 			}
 		}
 	}

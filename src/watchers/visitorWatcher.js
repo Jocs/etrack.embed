@@ -1,27 +1,8 @@
 import logger from '../store'
 import { getXPath } from '../utils'
-/**
- * 以前思路是在通过addEventListener的时候，对listener进行改写，来搜集用户操作信息，
- * 这样做的目的，就是防止因为阻止冒泡而导致添加到document上面的事件监听，监听不到事件。
- * 后来发现，这样做根本多余了，我们在document添加事件的时候，只要给addEventListener
- * 传递第三个参数，为true时，这样就在捕获阶段就搜集用户操作信息，就不用管是否阻止冒泡了。
- */
-// export const handleVisotorOperation = (eventType, e) => {
-// 	e.preventDefault()
-// 	e.stopPropagation()
-// 	switch (eventType) {
-// 		case 'click':
-// 			onClicked(e)
-// 			break
-// 		case 'blur':
-// 			onInputChanged(e)
-// 			break
-// 		default:
-// 			break
-// 	}
-// }
 
 const onInputChanged = e => {
+	if (e.target && !e.target.tagName) return
 	const target = e.target
 	if (isDescribedElement(target, 'textarea')) {
 		writeVisitorEvent(target, 'input', target.value)

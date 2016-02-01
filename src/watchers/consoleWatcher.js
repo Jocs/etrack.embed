@@ -18,7 +18,7 @@ const wrapConsoleObject = function(console) {
 					try {
 						throw new Error(serialize(args))
 					} catch (err) {
-						sendError('console', err)
+						sendError('console@error', err)
 					}
 				}
 				_method.apply(this, args)

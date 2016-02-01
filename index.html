@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html     lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
@@ -8,18 +8,11 @@
 <body>
 	<button id='button'>ccc</button>
 	<script>
-		window.onerror = function(msg, url, line, col, err) {
-			console.log(`${msg} ${url} ${line} ${col} ${err}`)
-			console.warn(err.isReported)
-		}
 
 		function a() {
 			b()
 		}
-		button.addEventListener('click', function(e) {
-			console.log('b')
-			a()
-		}, false)
+		a()
 	</script>
 </body>
 </html>

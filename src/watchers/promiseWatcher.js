@@ -1,12 +1,13 @@
 import { sendError, sendETrackFault } from '../sendError'
+import { wrapError } from '../utils'
 
 const protectEntryPoint = fn => {
 	return function protectedEntryPoint() {
 		try {
 			return fn(...arguments)
 		} catch (err) {
-			sendError('catch', err)
-			throw err
+			sendError('promise@catch', err)
+			throw wrapError(err)
 		}
 	}
 }

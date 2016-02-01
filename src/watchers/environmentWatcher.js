@@ -1,6 +1,8 @@
 import config from '../config'
+import { sendETrackFault } from '../sendError'
 
 const LOADED_ON = +new Date()
+let currentPosition = null
 
 const discoverDependencies = function() {
 	const results = {}
@@ -32,8 +34,38 @@ const discoverDependencies = function() {
 	return results
 }
 
+// TODO: 获取地理位置
+
+const getCurrentLocation = function getCurrentLocation() {
+	const options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0
+	}
+
+	const promise = new Promise((resolve, reject) => {
+		navigator.geolocation.getCurrentPosition(pos => {
+
+			resolve(pos.coords)
+		}, err => {
+			reject(err)
+		}, options)
+	})
+
+	return promise
+
+}
+
+if (config.canIGetCurrentPosition) {
+	getCurrentLocation()
+	.then(pos => currentPosition = pos)
+	.catch(err => sendETrackFault(err))
+}
+
 const getEnvironment = () => {
+
 	return {
+		location: currentPosition,
 		loadon: LOADED_ON,
 		age: +new Date() - LOADED_ON,
 		url: (window.location || '').toString(),

@@ -59,7 +59,7 @@ export const serialize = msg => {
 export const wrapError = err => {
 	if (err.innerError) return err
 
-	const newError = new Error(`eTrack Caught: ${err.message || err}`)
+	let newError = Error(`eTrack Caught: ${err.message || err}`)
 	newError.description = `eTrack Caught: ${err.description}`
 	newError.file = err.file
 	newError.line = err.line || err.lineNumber
