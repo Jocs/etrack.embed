@@ -1,7 +1,7 @@
 {
   "name": "track-error-embeded",
   "description": "a client js file embeded in application to track js error and request/response error",
-  "main": "index.js",
+  "main": "src/index.js",
   "authors": [
     "Jocs"
   ],

@@ -74,3 +74,18 @@ export const wrapError = err => {
 
 	return newError
 }
+
+// just like Object.assign
+export const extend = (...args) => {
+	const argsLists = args.slice(1)
+	argsLists.forEach(item => {
+		if (typeof item === 'object' && Object.prototype.toString.call(item) === '[object Object]') {
+			for (let props in item) {
+				if (item.hasOwnProperty(props)) {
+					args[0][props] = item[props]
+				}
+			}
+		}
+	})
+	return args[0]
+}

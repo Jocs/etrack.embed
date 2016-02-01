@@ -1,4 +1,4 @@
-import { unid } from '../utils'
+import { unid, extend } from '../utils'
 
 class Processes {
 	constructor() {
@@ -23,8 +23,9 @@ class Processes {
 		for (let i = 0, len = processes.length; i < len; i++) {
 			if (catigory === processes[i].catigory && id === processes[i].id) {
 				const oldValue = processes[i].value
-				processes[i].value = Object.assign({}, oldValue, addedValue)
-				// console.log(processes[i].value) // 用于debugger
+				// processes[i].value = Object.assign({}, oldValue, addedValue)
+				processes[i].value = extend({}, oldValue, addedValue)
+				console.log(processes[i].value) // 用于debugger
 			}
 		}
 		return false
@@ -34,7 +35,7 @@ class Processes {
 		const id = unid()
 		this.processes.push({id, catigory, value})
 		this.truncate()
-		console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
+		// console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
 		return id
 	}
 }
