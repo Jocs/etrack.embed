@@ -9,14 +9,18 @@
 	<button id='button'>ccc</button>
 	<script>
 
-		const promise = new Promise((resolve, reject) => {
-			setTimeout(() => {
+		const promise = new Promise(function(resolve, reject) {
+			setTimeout(function() {
 				resolve(3)
 			}, 3000)
 		})
 
-		promise.then(data => a(data))
-		.catch(err => console.log(err))
+		promise.then(function(data) {
+			a(data)
+		})
+		.catch(function(err) {
+			console.log(err)
+		})
 	</script>
 </body>
 </html>

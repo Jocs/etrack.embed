@@ -34,8 +34,6 @@ const discoverDependencies = function() {
 	return results
 }
 
-// TODO: 获取地理位置
-
 const getCurrentLocation = function getCurrentLocation() {
 	const options = {
 		enableHighAccuracy: true,
@@ -62,9 +60,20 @@ if (config.canIGetCurrentPosition) {
 	.catch(err => sendETrackFault(err))
 }
 
+const getCurrentUser = () => {
+	const domain = document.domain
+	const domainParts = /(.*)-/.exec(domain)
+	if (domainParts[0] && domainParts[1]) {
+		return domainParts[1]
+	} else {
+		return '未知用户'
+	}
+}
+
 const getEnvironment = () => {
 
 	return {
+		currentUser: getCurrentUser(),
 		location: currentPosition,
 		loadon: LOADED_ON,
 		age: +new Date() - LOADED_ON,
@@ -75,6 +84,7 @@ const getEnvironment = () => {
 		viewportHeight: window.document.documentElement.clientHeight,
 		viewportWidth: window.document.documentElement.clientWidth
 	}
+
 }
 
 export default getEnvironment

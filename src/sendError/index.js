@@ -1,5 +1,4 @@
 import getEnvironment from '../watchers/environmentWatcher'
-//import StackTrace from 'stacktrace-js'
 
 export const sendError = (errorType, err) => {
 	console.log(`${errorType}: ${err.message}`)

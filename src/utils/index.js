@@ -60,6 +60,8 @@ export const wrapError = err => {
 	if (err.innerError) return err
 
 	let newError = Error(`eTrack Caught: ${err.message || err}`)
+	// use try/catch block to avoid safari than can's re assign 'line' and 'column' properties
+	// because the two properties writable is false.
 	try {
 		newError.description = `eTrack Caught: ${err.description}`
 		newError.file = err.file

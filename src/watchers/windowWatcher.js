@@ -1,5 +1,6 @@
 import { sendError, sendETrackFault } from '../sendError'
 import { serialize } from '../utils'
+import config from '../config'
 
 let isWindowErrorWatched = false
 
@@ -9,6 +10,9 @@ const initWindowWatcher = win => {
 	win.onerror = function(msg, url, line, col, err = {}) {
 		// 如果错误已经被 eTrack 捕获，那么 window.onerror 就不再 report 该错误
 		if (/eTrack\s{1}Caught:/.test(msg) || (err.isReported && err.isReported === true)) return
+		// 是否过滤 Script error (default dont collect Script error)
+		if (!config.ScriptError && /Script\s{1}error/.test(msg)) return
+
 		let error
 		try {
 			error = err || {}
