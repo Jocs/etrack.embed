@@ -10,7 +10,8 @@ import { contain } from './utils'
 
 const parser = new UAParser()
 const browserName = parser.getResult().browser.name
-
+// Becasuse Safari and IE dont have the 5th argument in window.onerror callback.
+// So we try our best to catch error in try/catch block in Safari browser.
 if (browserName && contain(config.callbackWatcherBrowsers, browserName)) {
 	callbackWatcher.initialize()
 }

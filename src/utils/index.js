@@ -49,6 +49,23 @@ export const getXPath = element => {
 	return `//${path}`
 }
 
+export const getCssSelector = element => {
+	const xPath = getXPath(element)
+	const token = xPath.substring(2).split('/')
+	return token.reduce((prev, next) => {
+		if (/@id/.test(next)) {
+			const match = /\[@id\='([a-zA-Z0-9\-_]+)'\]/.exec(next)
+			return prev === '' ? `#${match[1]}` : `${prev}>#${match[1]}`
+		} else if (/\[\d+\]$/.test(next)) {
+			const match = /([a-z]+\d*)\[(\d+)\]$/.exec(next)
+			return prev === '' ? `${match[1]}:nth-of-type(${match[2]})`
+			: `${prev}>${match[1]}:nth-of-type(${match[2]})`
+		} else {
+			return prev === '' ? next : `${prev}>${next}`
+		}
+	}, '')
+}
+
 export const serialize = msg => {
 	if (msg === undefined || msg === null) return 'undefined or null'
 	if (typeof msg === 'number' && isNaN(msg)) return 'NaN'

@@ -1,5 +1,5 @@
 import logger from '../store'
-import { getXPath } from '../utils'
+import { getXPath, getCssSelector } from '../utils'
 
 const onInputChanged = e => {
 	if (e.target && !e.target.tagName) return // 解决Firefox中地址栏失去焦点也会触发 blur 事件 bug
@@ -55,6 +55,7 @@ const writeVisitorEvent = (element, action, value, checked) => {
 			attributes: getAttributes(element),
 			value: newValue,
 			xpath: getXPath(element),
+			cssSelector: getCssSelector(element),
 			checked
 		}
 	})

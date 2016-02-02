@@ -9,7 +9,7 @@ export const report = (errorType, err) => {
 	// console.log(err.file, err.fileName)
 	// console.log(err.stack)
 
-	//console.log(getEnvironment())
+	console.log(getEnvironment())
 }
 export const sendETrackFault = err => {
 	console.log(`lib: ${err.stack}`)
