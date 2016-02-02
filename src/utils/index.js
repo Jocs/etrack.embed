@@ -89,3 +89,11 @@ export const extend = (...args) => {
 	})
 	return args[0]
 }
+
+export const contain = (array, item) => {
+	if (!Array.isArray(array)) return false
+	for (let i = 0, len = array.length; i < len; i++) {
+		if (array[i] === item) return true
+	}
+	return false
+}

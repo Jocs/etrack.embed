@@ -1,4 +1,4 @@
-import { sendError, sendETrackFault } from '../sendError'
+import { report, sendETrackFault } from '../reportor'
 import { wrapError } from '../utils'
 
 const protectEntryPoint = fn => {
@@ -6,16 +6,15 @@ const protectEntryPoint = fn => {
 		try {
 			return fn(...arguments)
 		} catch (err) {
-			sendError('promise@catch', err)
+			report('promise@catch', err)
 			// throw the wrapped err to ensure than catch block can catch this error.
 			throw wrapError(err)
 		}
 	}
 }
 
-const _then = Promise.prototype.then
-
 const initPromiseWatcher = constructor => {
+	const _then = constructor.prototype.then
 	constructor.prototype.then = function(...args) {
 		try {
 			const newArgs = args.map(arg => {

@@ -1,6 +1,6 @@
 import { unid, extend } from '../utils'
 
-class Processes {
+class Logger {
 	constructor() {
 		this.processes = []
 		this.MAX_STORAGE = 30
@@ -25,7 +25,7 @@ class Processes {
 				const oldValue = processes[i].value
 				// processes[i].value = Object.assign({}, oldValue, addedValue)
 				processes[i].value = extend({}, oldValue, addedValue)
-				console.log(processes[i].value) // 用于debugger
+				// console.log(processes[i].value) // 用于debugger
 			}
 		}
 		return false
@@ -35,11 +35,11 @@ class Processes {
 		const id = unid()
 		this.processes.push({id, catigory, value})
 		this.truncate()
-		// console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
+		console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
 		return id
 	}
 }
 
-const logger = new Processes()
+const logger = new Logger()
 
 export default logger

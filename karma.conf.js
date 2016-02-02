@@ -4,7 +4,7 @@ module.exports = config => {
 		singleRun: true,
 		frameworks: ['jasmine'],
 		reporters: ['dots'],
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome'], // PhantomJs 有可能不支持Promise，所以还是使用Chrome了
 		files: [
 			'test/**/*.spec.js'
 		],

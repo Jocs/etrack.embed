@@ -1,4 +1,4 @@
-import { sendError, sendETrackFault } from '../sendError'
+import { report, sendETrackFault } from '../reportor'
 import { serialize } from '../utils'
 import config from '../config'
 
@@ -12,7 +12,6 @@ const initWindowWatcher = win => {
 		if (/eTrack\s{1}Caught:/.test(msg) || (err.isReported && err.isReported === true)) return
 		// 是否过滤 Script error (default dont collect Script error)
 		if (!config.ScriptError && /Script\s{1}error/.test(msg)) return
-
 		let error
 		try {
 			error = err || {}
@@ -21,7 +20,7 @@ const initWindowWatcher = win => {
 			error.file = err.file || err.fileName || serialize(url)
 			error.column = err.column || err.columnNumber || parseInt(col, 10) || null
 			error.stack = err.stack || null
-			sendError('window@onerror', error)
+			report('window@onerror', error)
 		} catch (e) {
 			sendETrackFault(e)
 		}

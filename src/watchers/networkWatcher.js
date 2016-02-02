@@ -1,5 +1,5 @@
 import logger from '../store'
-import { sendError, sendETrackFault } from '../sendError'
+import { report, sendETrackFault } from '../reportor'
 
 const initAJAXWatcher = xhr => {
 	const _open = xhr.prototype.open
@@ -60,7 +60,7 @@ const checkAJAXError = xhr => {
 	if (xhr._ajaxInfo) {
 		if (xhr.status >= 400 && xhr.status !== 1223) {
 			const ajaxInfo = xhr._ajaxInfo
-			sendError('ajax@error', `${xhr.status}: ${xhr.statusText} ${ajaxInfo.method} ${ajaxInfo.url}`)
+			report('ajax@error', `${xhr.status}: ${xhr.statusText} ${ajaxInfo.method} ${ajaxInfo.url}`)
 		}
 	}
 }

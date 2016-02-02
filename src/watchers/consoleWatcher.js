@@ -1,4 +1,4 @@
-import { sendError, sendETrackFault } from '../sendError'
+import { report, sendETrackFault } from '../reportor'
 import { serialize } from '../utils'
 import logger from '../store'
 
@@ -18,7 +18,7 @@ const wrapConsoleObject = function(console) {
 					try {
 						throw new Error(serialize(args))
 					} catch (err) {
-						sendError('console@error', err)
+						report('console@error', err)
 					}
 				}
 				_method.apply(this, args)

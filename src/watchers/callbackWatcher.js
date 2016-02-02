@@ -1,4 +1,4 @@
-import { sendError, sendETrackFault } from '../sendError'
+import { report, sendETrackFault } from '../reportor'
 import { wrapError } from '../utils'
 
 class EventsCollections {
@@ -59,7 +59,7 @@ class WrapAsyncCallback {
 						_callback(e)
 
 					} catch (err) {
-						sendError('callback@catch', err)
+						report('callback@catch', err)
 						throw wrapError(err)
 					}
 				}
@@ -88,7 +88,7 @@ class WrapAsyncCallback {
 	}
 }
 
-const catchAndWatch = new WrapAsyncCallback()
+const callbackWatcher = new WrapAsyncCallback()
 
-export default catchAndWatch
+export default callbackWatcher
 

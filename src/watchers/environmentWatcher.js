@@ -1,6 +1,8 @@
 import config from '../config'
-import { sendETrackFault } from '../sendError'
+import { sendETrackFault } from '../reportor'
+import UAParser from 'ua-parser-js'
 
+const parser = new UAParser()
 const LOADED_ON = +new Date()
 let currentPosition = null
 
@@ -63,7 +65,7 @@ if (config.canIGetCurrentPosition) {
 const getCurrentUser = () => {
 	const domain = document.domain
 	const domainParts = /(.*)-/.exec(domain)
-	if (domainParts[0] && domainParts[1]) {
+	if (domainParts && domainParts[0] && domainParts[1]) {
 		return domainParts[1]
 	} else {
 		return '未知用户'
@@ -79,7 +81,7 @@ const getEnvironment = () => {
 		age: +new Date() - LOADED_ON,
 		url: (window.location || '').toString(),
 		dependencies: discoverDependencies(),
-		userAgent: window.navigator.userAgent,
+		userAgentInfo: parser.getResult(),
 		version: config.version,
 		viewportHeight: window.document.documentElement.clientHeight,
 		viewportWidth: window.document.documentElement.clientWidth
