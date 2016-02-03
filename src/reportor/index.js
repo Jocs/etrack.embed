@@ -1,18 +1,21 @@
 import getEnvironment from '../watchers/environmentWatcher'
 import logger from '../logger'
 import config from '../config'
+import { getAndEmpty, addItem } from '../localStorage'
 
-let tryCount = 0
 const MAX_TRY = config.MAX_TRY
 
 export const report = (errorType, err) => {
 	const error = formatError(err)
 	const dataPack = getDataPack(errorType, error)
-	sendError(config.errorCaptureURL, dataPack)
+	const dataPackList = getAndEmpty()
+	dataPackList.push(dataPack)
+	dataPackList.forEach(pack => sendError(config.errorCaptureURL, pack))
 }
 
 const getDataPack = (errorType, error) => {
 	const dataPack = {
+		tryCount: 0, // 用于记录发送次数
 		errorType,
 		error,
 		logger: logger.getAll(),
@@ -58,10 +61,12 @@ const sendError = (url, dataPack) => {
 		console.log(`eTrack dataPack POST to ${url} successfully, with the responseText: ${response}`)
 	})
 	.catch(errMsg => {
-		tryCount++
-		if (tryCount < MAX_TRY) {
+		dataPack.tryCount++
+		if (dataPack.tryCount < MAX_TRY) {
 			sendError(url, dataPack)
 		} else {
+			dataPack.tryCount = 0
+			addItem(dataPack)
 			logger.clear()
 			console.log(errMsg)
 		}
@@ -70,6 +75,6 @@ const sendError = (url, dataPack) => {
 
 export const sendETrackFault = err => {
 	ajax(config.eTrackFaultURL, formatError(err))
-	.then(responseText => console.log(`eTrack Fault send successfully: ${responseText}`))
+	.then(responseText => console.log(`eTrack Fault send successfully with the responseText: ${responseText}`))
 	.catch(errMsg => console.log(errMsg))
 }

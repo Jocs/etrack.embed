@@ -7,6 +7,7 @@ import initWindowWatcher from './watchers/windowWatcher'
 import UAParser from 'ua-parser-js'
 import config from './config'
 import { contain } from './utils'
+import { initLocalStorage } from './localStorage'
 
 const parser = new UAParser()
 const browserName = parser.getResult().browser.name
@@ -20,3 +21,4 @@ initConsoleWatcher()
 initAJAXWatcher(window.XMLHttpRequest)
 initPromiseWatcher(Promise)
 initWindowWatcher(window)
+initLocalStorage()

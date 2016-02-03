@@ -61,7 +61,7 @@ const checkAJAXError = xhr => {
 		if (xhr.status >= 400 && xhr.status !== 1223) {
 			const ajaxInfo = xhr._ajaxInfo
 			// 不报告向eTrack发送错误信息的response错误
-			if (/eTrack\.duapp\.com/.test(ajaxInfo.url)) return
+			if (/(capture|fault)/.test(ajaxInfo.url)) return
 			// ajax@error also report an object contain 'message' property, just make no defference
 			// with other error object
 			report('ajax@error', {
