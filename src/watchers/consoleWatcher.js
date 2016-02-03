@@ -1,7 +1,8 @@
 import { report, sendETrackFault } from '../reportor'
 import { serialize } from '../utils'
-import logger from '../store'
+import logger from '../logger'
 
+// 不搜集console.log，因为console.log主要用于代码调试，搜集没多大意义
 const WATCH_LIST = ['debug', 'info', 'warn', 'error']
 
 const wrapConsoleObject = function(console) {

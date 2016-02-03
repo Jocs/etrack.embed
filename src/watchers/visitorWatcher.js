@@ -1,4 +1,4 @@
-import logger from '../store'
+import logger from '../logger'
 import { getXPath, getCssSelector } from '../utils'
 
 const onInputChanged = e => {

@@ -2,7 +2,7 @@ import config from '../config'
 import { sendETrackFault } from '../reportor'
 import UAParser from 'ua-parser-js'
 
-const parser = new UAParser()
+const uaParser = new UAParser()
 const LOADED_ON = +new Date()
 let currentPosition = null
 
@@ -78,10 +78,10 @@ const getEnvironment = () => {
 		currentUser: getCurrentUser(),
 		location: currentPosition,
 		loadon: LOADED_ON,
-		age: +new Date() - LOADED_ON,
+		runTime: +new Date() - LOADED_ON,
 		url: (window.location || '').toString(),
 		dependencies: discoverDependencies(),
-		userAgentInfo: parser.getResult(),
+		userAgentInfo: uaParser.getResult(),
 		version: config.version,
 		viewportHeight: window.document.documentElement.clientHeight,
 		viewportWidth: window.document.documentElement.clientWidth
