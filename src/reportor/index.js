@@ -2,6 +2,9 @@ import getEnvironment from '../watchers/environmentWatcher'
 import logger from '../logger'
 import config from '../config'
 
+let tryCount = 0
+const MAX_TRY = config.MAX_TRY
+
 export const report = (errorType, err) => {
 	const error = formatError(err)
 	const dataPack = getDataPack(errorType, error)
@@ -9,12 +12,13 @@ export const report = (errorType, err) => {
 }
 
 const getDataPack = (errorType, error) => {
-	return {
+	const dataPack = {
 		errorType,
 		error,
 		logger: logger.getAll(),
 		environment: getEnvironment()
 	}
+	return dataPack
 }
 
 const formatError = err => {
@@ -32,10 +36,12 @@ const ajax = (url, dataPack) => {
 		const req = new XMLHttpRequest()
 		req.onerror = reject
 		req.onreadystatechange = function onreadystatechange() {
-			if (req.status >= 200 && req.status < 400) {
-				resolve(req.responseText)
-			} else {
-				reject(`eTrack POST to ${url} failed with status: ${req.status}`)
+			if (req.readyState === 4) {
+				if (req.status >= 200 && req.status < 400) {
+					resolve(req.responseText)
+				} else {
+					reject(`eTrack POST to ${url} failed with status: ${req.status}`)
+				}
 			}
 		}
 		req.open('post', url)
@@ -45,20 +51,21 @@ const ajax = (url, dataPack) => {
 }
 
 const sendError = (url, dataPack) => {
-	let tryCount = 0
-	let isSended = false
-	const MAX_TRY = config.MAX_TRY
-	while (tryCount <= MAX_TRY && !isSended) {
-		ajax(url, dataPack)
-		.then(response => {
-			console.log(`eTrack dataPack POST to ${url} successfully, with the responseText: ${response}`)
-			isSended = true
-		})
-		.catch(errMsg => {
-			if (tryCount === 3) console.log(errMsg)
-			tryCount++
-		})
-	}
+
+	ajax(url, dataPack)
+	.then(response => {
+		logger.clear()
+		console.log(`eTrack dataPack POST to ${url} successfully, with the responseText: ${response}`)
+	})
+	.catch(errMsg => {
+		tryCount++
+		if (tryCount < MAX_TRY) {
+			sendError(url, dataPack)
+		} else {
+			logger.clear()
+			console.log(errMsg)
+		}
+	})
 }
 
 export const sendETrackFault = err => {

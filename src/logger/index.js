@@ -35,7 +35,7 @@ class Logger {
 		const id = unid()
 		this.processes.push({id, catigory, value})
 		this.truncate()
-		console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
+		//console.log(this.processes[this.processes.length - 1]) // 用于调试，以后记得删除
 		return id
 	}
 }
