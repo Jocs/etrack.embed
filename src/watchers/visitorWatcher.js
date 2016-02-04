@@ -1,3 +1,4 @@
+// TODO: 记录用户click\input的屏幕位置，用于标记在屏幕截图上面
 import logger from '../logger'
 import { getXPath, getCssSelector } from '../utils'
 
