@@ -1,4 +1,5 @@
 // TODO: 记录用户click\input的屏幕位置，用于标记在屏幕截图上面
+// element.getBoundingClientRect() 用于获取元素位置
 import logger from '../logger'
 import { getXPath, getCssSelector } from '../utils'
 

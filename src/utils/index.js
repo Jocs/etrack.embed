@@ -66,6 +66,24 @@ export const getCssSelector = element => {
 	}, '')
 }
 
+export const getElementPosition = element => {
+	let currentWindow = window
+	let rect = element.getBoundingClientRect()
+	let top = rect.top
+	let left = rect.left
+	while (currentWindow.frameElement !== null) {
+		element = currentWindow.frameElement
+		currentWindow = currentWindow.parent
+		rect = element.getBoundingClientRect()
+		if (rect.top > 0) top = top + rect.top
+		if (rect.left > 0) left = left + rect.left
+	}
+	return {
+		top: Math.floor(top),
+		left: Math.floor(left)
+	}
+}
+
 export const serialize = msg => {
 	if (msg === undefined || msg === null) return 'undefined or null'
 	if (typeof msg === 'number' && isNaN(msg)) return 'NaN'
