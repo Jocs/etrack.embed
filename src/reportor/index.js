@@ -20,7 +20,8 @@ const getDataPack = (errorType, error) => {
 		error,
 		logger: logger.getAll(),
 		environment: getEnvironment(),
-		time: +new Date()
+		time: +new Date(),
+		applicationId: window.eTrack && window.eTrack.appId || null
 	}
 	return dataPack
 }
