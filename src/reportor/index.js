@@ -19,7 +19,8 @@ const getDataPack = (errorType, error) => {
 		errorType,
 		error,
 		logger: logger.getAll(),
-		environment: getEnvironment()
+		environment: getEnvironment(),
+		time: +new Date()
 	}
 	return dataPack
 }
@@ -35,6 +36,7 @@ const formatError = err => {
 }
 
 const ajax = (url, dataPack) => {
+	console.log(dataPack)
 	return new Promise((resolve, reject) => {
 		const req = new XMLHttpRequest()
 		req.onerror = reject

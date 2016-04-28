@@ -28,8 +28,8 @@ const initAJAXWatcher = xhr => {
 }
 
 const listenForAJAXComplete = xhr => {
+	
 	try {
-
 		xhr.addEventListener('readystatechange', () => {
 			xhr.readyState === 4 && complieAJAXListen(xhr)
 		}, true)
