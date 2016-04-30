@@ -4,7 +4,7 @@ const config = {
 	ScriptError: false,
 	callbackWatcherBrowsers: ['Safari'],
 	MAX_TRY: 3, // Send data, if failed, try again, but not more than 3 times
-	errorCaptureURL: '/capture',
-	eTrackFaultURL: '/fault'
+	errorCaptureURL: 'http://127.0.0.1:8080/api/error/capture',
+	eTrackFaultURL: 'http://127.0.0.1:8080/api/error/fault'
 }
 export default config

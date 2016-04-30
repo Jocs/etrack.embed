@@ -58,7 +58,12 @@ const getCurrentLocation = function getCurrentLocation() {
 
 if (config.canIGetCurrentPosition) {
 	getCurrentLocation()
-	.then(pos => currentPosition = pos)
+	.then(pos => {
+		const { accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = pos
+		currentPosition = JSON.stringify({accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed })
+		console.log(currentPosition)
+		console.log(accuracy)
+	})
 	.catch(err => sendETrackFault(err))
 }
 
