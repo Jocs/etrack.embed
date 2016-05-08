@@ -14,7 +14,7 @@ const initAJAXWatcher = xhr => {
 		try {
 			if (!this._ajaxInfo) return _send.apply(this, args)
 			// 不收集向eTrack.Js发送请求的日志
-			if (!/(capture|fault)/.test(ajaxInfo.url)) {
+			if (!/(capture|fault)/.test(this._ajaxInfo.url)) {
 				this._ajaxInfo.id = logger.add('ajax', {
 					startedOn: +new Date(),
 					method: this._ajaxInfo.method,
