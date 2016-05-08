@@ -13,11 +13,14 @@ const initAJAXWatcher = xhr => {
 	xhr.prototype.send = function(...args) {
 		try {
 			if (!this._ajaxInfo) return _send.apply(this, args)
-			this._ajaxInfo.id = logger.add('ajax', {
-				startedOn: +new Date(),
-				method: this._ajaxInfo.method,
-				url: this._ajaxInfo.url
-			})
+			// 不收集向eTrack.Js发送请求的日志
+			if (!/(capture|fault)/.test(ajaxInfo.url)) {
+				this._ajaxInfo.id = logger.add('ajax', {
+					startedOn: +new Date(),
+					method: this._ajaxInfo.method,
+					url: this._ajaxInfo.url
+				})
+			}
 			listenForAJAXComplete(this)
 		} catch (err) {
 			sendETrackFault(err)
@@ -45,7 +48,7 @@ const listenForAJAXComplete = xhr => {
 }
 
 const complieAJAXListen = xhr => {
-	if (xhr._ajaxInfo) {
+	if (xhr._ajaxInfo && xhr._ajaxInfo.id) {
 		logger.update('ajax', xhr._ajaxInfo.id, {
 			endOn: +new Date(),
 			statusCode: xhr.status === 1223 ? 204 : xhr.status,
@@ -61,7 +64,7 @@ const checkAJAXError = xhr => {
 		if (xhr.status >= 400 && xhr.status !== 1223) {
 			const ajaxInfo = xhr._ajaxInfo
 			// 不报告向eTrack发送错误信息的response错误
-			if (/(capture|fault)/.test(ajaxInfo.url)) return
+			if (/(capture|fault)/.test(ajaxInfo.url)) return false
 			// ajax@error also report an object contain 'message' property, just make no defference
 			// with other error object
 			report('ajax@error', {
