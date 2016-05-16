@@ -37,7 +37,6 @@ const formatError = err => {
 }
 
 const ajax = (url, dataPack) => {
-	console.log(dataPack)
 	return new Promise((resolve, reject) => {
 		const req = new XMLHttpRequest()
 		req.onerror = reject

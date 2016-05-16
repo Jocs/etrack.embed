@@ -49,11 +49,17 @@ const listenForAJAXComplete = xhr => {
 
 const complieAJAXListen = xhr => {
 	if (xhr._ajaxInfo && xhr._ajaxInfo.id) {
+		let responseText = ''
+		try {
+			responseText = xhr.responseText
+		} catch (err) {
+			responseText = 'responseType为json。无法获取responseText'
+		}
 		logger.update('ajax', xhr._ajaxInfo.id, {
 			endOn: +new Date(),
 			statusCode: xhr.status === 1223 ? 204 : xhr.status,
 			statusText: xhr.status === 1223 ? 'No Content' : xhr.statusText,
-			responseText: xhr.responseText,
+			responseText,
 			responseType: xhr.responseType
 		})
 	}
