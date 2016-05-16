@@ -63,7 +63,7 @@ const sendError = (url, dataPack) => {
 	ajax(url, dataPack)
 	.then(response => {
 		logger.clear()
-		console.log(`eTrack dataPack POST to ${url} successfully, with the responseText: ${response}`)
+		// console.log(`eTrack dataPack POST to ${url} successfully, with the responseText: ${response}`)
 	})
 	.catch(errMsg => {
 		dataPack.tryCount++
@@ -80,6 +80,8 @@ const sendError = (url, dataPack) => {
 
 export const sendETrackFault = err => {
 	ajax(config.eTrackFaultURL, formatError(err))
-	.then(responseText => console.log(`eTrack Fault send successfully with the responseText: ${responseText}`))
+	.then(responseText => {
+		// console.log(`eTrack Fault send successfully with the responseText: ${responseText}`)
+	})
 	.catch(errMsg => console.log(errMsg))
 }
