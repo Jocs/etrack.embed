@@ -4,9 +4,12 @@ import config from '../config'
 import { getAndEmpty, addItem } from '../localStorage'
 
 const MAX_TRY = config.MAX_TRY
+let lastErrorMessage = ''
 
 export const report = (errorType, err) => {
 	const error = formatError(err)
+	if (config.deDuplicate && error.message === lastErrorMessage) return false
+	lastErrorMessage = error.message
 	const dataPack = getDataPack(errorType, error)
 	const dataPackList = getAndEmpty()
 	dataPackList.push(dataPack)

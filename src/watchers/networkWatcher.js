@@ -53,7 +53,7 @@ const complieAJAXListen = xhr => {
 		try {
 			responseText = xhr.responseText
 		} catch (err) {
-			responseText = 'responseType为json。无法获取responseText'
+			responseText = xhr.response
 		}
 		logger.update('ajax', xhr._ajaxInfo.id, {
 			endOn: +new Date(),

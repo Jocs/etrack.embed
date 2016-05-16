@@ -61,8 +61,6 @@ if (config.canIGetCurrentPosition) {
 	.then(pos => {
 		const { accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed} = pos
 		currentPosition = JSON.stringify({accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed })
-		console.log(currentPosition)
-		console.log(accuracy)
 	})
 	.catch(err => sendETrackFault(err))
 }
