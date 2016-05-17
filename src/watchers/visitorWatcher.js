@@ -46,7 +46,7 @@ const isDescribedElement = (element, tagName, typeArray) => {
 
 const writeVisitorEvent = (element, action, value, checked) => {
 	let newValue = value
-	if (element.getAttribute('type') && element.getAttribute('type').toLowerCase === 'password') {
+	if (element.getAttribute('type') && element.getAttribute('type').toLowerCase() === 'password') {
 		newValue = '密码不予显示'
 	}
 	logger.add('visitor', {
